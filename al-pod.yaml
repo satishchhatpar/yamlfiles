@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: al-pod
+spec:
+  containers:
+    - name: al-pod
+      image: redis
+      env:
+        - name: AL_USER
+          valueFrom:
+            configMapKeyRef:
+              name: al-conf
+              key: al-user
+  restartPolicy: Never

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mulpod
+spec:
+  containers:
+  - image: nginx
+    name: container1
+    ports:
+    - containerPort: 80
+  - image: nginx
+    name: container2
+    ports:
+    - containerPort: 8080

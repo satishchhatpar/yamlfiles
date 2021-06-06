@@ -1,0 +1,88 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: "2021-05-29T09:03:32Z"
+  labels:
+    run: question-two-pod
+  name: question-two-pod
+  namespace: ggckad-s2
+  resourceVersion: "139337"
+  uid: db9d949d-ecea-4886-a5ee-898ee016f6d2
+spec:
+  containers:
+  - image: kubegoldenguide/alpine-spin:1.0.0
+    imagePullPolicy: IfNotPresent
+    name: question-two-pod
+    command: [ "/bin/sh", "-c", "env" ]
+    envFrom:
+      - configMapRef:
+          name: app-config
+    resources: {}
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: default-token-h548n
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: minikube
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Never
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: default-token-h548n
+    secret:
+      defaultMode: 420
+      secretName: default-token-h548n
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2021-05-29T09:03:32Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2021-05-29T09:03:34Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2021-05-29T09:03:34Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2021-05-29T09:03:32Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: docker://885c7eaad1b728d633315e1bad5419ce7aac3c82e856fa3be6e20f2f16276bbd
+    image: kubegoldenguide/alpine-spin:1.0.0
+    imageID: docker-pullable://kubegoldenguide/alpine-spin@sha256:e4856b0e84f9e43d010ff7dc124e4c22ed58737c4da176439efe4223c106da5d
+    lastState: {}
+    name: question-two-pod
+    ready: true
+    restartCount: 0
+    started: true
+    state:
+      running:
+        startedAt: "2021-05-29T09:03:33Z"
+  hostIP: 192.168.64.7
+  phase: Running
+  podIP: 172.17.0.16
+  podIPs:
+  - ip: 172.17.0.16
+  qosClass: BestEffort
+  startTime: "2021-05-29T09:03:32Z"

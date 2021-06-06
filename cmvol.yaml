@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dapi-test-pod67
+spec:
+  containers:
+    - name: test-container
+      image: k8s.gcr.io/busybox
+      command: [ "/bin/sh", "-c", "ls /etc/cfg/" ]
+      volumeMounts:
+      - name: config-volume
+        mountPath: /etc/cfg
+  volumes:
+    - name: config-volume
+      configMap:
+        name: cfgvolume
+  restartPolicy: Never

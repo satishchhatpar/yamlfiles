@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    client: user
+spec:
+  replicas: 6
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: revproxy
+  template:
+    metadata:
+      labels:
+        app: revproxy
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.7.9
+        ports:
+        - containerPort: 80

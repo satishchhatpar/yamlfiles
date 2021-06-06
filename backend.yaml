@@ -1,0 +1,88 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: "2021-05-13T11:07:12Z"
+  annotations:
+    contact: "Mary Harris"
+  labels:
+    env: prod
+    team: legacy
+    app: v1.2.4
+  name: backend
+  namespace: default
+  resourceVersion: "2561"
+  uid: 9973de15-2e92-4410-b83b-cef6fef0554c
+spec:
+  containers:
+  - image: nginx
+    imagePullPolicy: Always
+    name: backend
+    resources: {}
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: default-token-2xcsv
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: minikube
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: default-token-2xcsv
+    secret:
+      defaultMode: 420
+      secretName: default-token-2xcsv
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2021-05-13T11:07:12Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2021-05-13T11:07:17Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2021-05-13T11:07:17Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2021-05-13T11:07:12Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: docker://7e40efce1b69f21bd66933d90969eca0f63bd941472cf92ee2fa8f91807570f1
+    image: nginx:latest
+    imageID: docker-pullable://nginx@sha256:df13abe416e37eb3db4722840dd479b00ba193ac6606e7902331dcea50f4f1f2
+    lastState: {}
+    name: backend
+    ready: true
+    restartCount: 0
+    started: true
+    state:
+      running:
+        startedAt: "2021-05-13T11:07:17Z"
+  hostIP: 192.168.64.7
+  phase: Running
+  podIP: 172.17.0.8
+  podIPs:
+  - ip: 172.17.0.8
+  qosClass: BestEffort
+  startTime: "2021-05-13T11:07:12Z"

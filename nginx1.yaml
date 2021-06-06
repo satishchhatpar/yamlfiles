@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "2"
+  creationTimestamp: "2021-05-24T11:12:38Z"
+  generation: 2
+  labels:
+    run: nginx
+  name: nginx
+  namespace: default
+  resourceVersion: "60044"
+  uid: 546baa1c-3529-4d9b-8537-e2730a387ab1
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      run: nginx
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: nginx
+    spec:
+      containers:
+      - image: nginx
+        imagePullPolicy: Always
+        name: nginx
+        volumeMounts:
+        - name: logs
+          mountPath: /var/log/nginx
+      - image: bash
+        name: sidecar
+        volumeMounts:
+        - mountPath: /tmp/logs
+          name: logs
+        command:
+          - "/bin/sh"
+          - "-c"
+          - "tail -f /tmp/logs/access.log"
+      volumes:
+      - emptyDir: {}
+        name: logs
+status:
+  availableReplicas: 1
+  conditions:
+  - lastTransitionTime: "2021-05-24T11:12:43Z"
+    lastUpdateTime: "2021-05-24T11:12:43Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  - lastTransitionTime: "2021-05-24T11:12:38Z"
+    lastUpdateTime: "2021-05-24T11:31:30Z"
+    message: ReplicaSet "nginx-5f9964675" is progressing.
+    reason: ReplicaSetUpdated
+    status: "True"
+    type: Progressing
+  observedGeneration: 2
+  readyReplicas: 1
+  replicas: 2
+  unavailableReplicas: 1
+  updatedReplicas: 1

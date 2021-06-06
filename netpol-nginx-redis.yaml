@@ -1,0 +1,26 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: nginxredisnetpol
+spec:
+  podSelector:
+    matchLabels:
+      app: nginxredis
+  ingress:
+  - from:
+    ports:
+    - protocol: TCP
+      port: 6379
+    - protocol: TCP
+      port: 80
+  egress:
+  - to:
+    ports:
+    - protocol: TCP
+      port: 80
+    - protocol: TCP
+      port: 6379
+  policyTypes:
+  - Egress
+  - Ingress

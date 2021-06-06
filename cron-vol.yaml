@@ -1,0 +1,27 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: hello
+spec:
+  schedule: "*/1 * * * *"
+  jobTemplate:
+    spec:
+      parallelism: 2
+      template:
+        spec:
+          volumes:
+            - name: task-pv-storage
+              persistentVolumeClaim:
+                claimName: task-pv-claim
+          containers:
+          - name: hello
+            image: busybox
+            imagePullPolicy: IfNotPresent
+            command:
+            - /bin/sh
+            - -c
+            - hostname >> /tmp/vol/storage 
+            volumeMounts:
+              - mountPath: "/tmp/vol"
+                name: task-pv-storage
+          restartPolicy: OnFailure

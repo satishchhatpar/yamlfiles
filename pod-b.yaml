@@ -1,0 +1,86 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: "2021-05-29T08:57:11Z"
+  labels:
+    run: pod-b
+  name: pod-b
+  namespace: ggckad-s0
+  resourceVersion: "138825"
+  uid: 00ca656a-33cb-413f-8fa9-037bdf03e7c0
+spec:
+  containers:
+  - image: kubegoldenguide/alpine-spin:1.0.0
+    imagePullPolicy: IfNotPresent
+    name: con1
+  - image: nginx:1.7.9
+    name: con2
+    resources: {}
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: default-token-dj2xs
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: minikube
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Never
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: default-token-dj2xs
+    secret:
+      defaultMode: 420
+      secretName: default-token-dj2xs
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2021-05-29T08:57:12Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2021-05-29T08:57:13Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2021-05-29T08:57:13Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2021-05-29T08:57:11Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: docker://fc29e707d4ab8dfc1b54fdbe77033203eee66f083b61086817dfebc754ae1c69
+    image: kubegoldenguide/alpine-spin:1.0.0
+    imageID: docker-pullable://kubegoldenguide/alpine-spin@sha256:e4856b0e84f9e43d010ff7dc124e4c22ed58737c4da176439efe4223c106da5d
+    lastState: {}
+    name: pod-b
+    ready: true
+    restartCount: 0
+    started: true
+    state:
+      running:
+        startedAt: "2021-05-29T08:57:13Z"
+  hostIP: 192.168.64.7
+  phase: Running
+  podIP: 172.17.0.15
+  podIPs:
+  - ip: 172.17.0.15
+  qosClass: BestEffort
+  startTime: "2021-05-29T08:57:12Z"
